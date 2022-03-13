@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:args/args.dart';
 
+import 'features/file_icon.dart';
 import 'features/file_name.dart';
 import 'features/file_owner.dart';
 import 'features/file_size.dart';
@@ -44,26 +45,24 @@ void main(List<String> arguments) async {
   List<FileSystemEntity> fileList = [];
   List<FileSystemEntity> files =
       await listDirectoryContents(directory, type: FileSystemEntityType.file);
-  List<FileSystemEntity> directories = await listDirectoryContents(directory,
-      type: FileSystemEntityType.directory);
+  List<FileSystemEntity> directories = await listDirectoryContents(
+    directory,
+    type: FileSystemEntityType.directory,
+  );
 
   fileList.addAll(directories);
   fileList.addAll(files);
 
   // ! Main logic starts here
-  run(args, fileList);
-}
-
-void run(Map<String, bool> args, List<FileSystemEntity> fileList) async {
   if (args['showHeaders']!) displayHeaders();
 
   for (FileSystemEntity element in fileList) {
     String output = '';
 
-    String path = element.uri.toFilePath(windows: Platform.isWindows);
+    String file = element.uri.toFilePath(windows: Platform.isWindows);
 
     try {
-      FileStat fileStat = await FileStat.stat(path);
+      FileStat fileStat = await FileStat.stat(file);
 
       if (args['longFileListing']!) {
         output += fileType(fileStat);
@@ -77,7 +76,10 @@ void run(Map<String, bool> args, List<FileSystemEntity> fileList) async {
         output += fileModificationDate(fileStat);
       }
 
-      output += fileName(element, fileStat, path);
+      if (args['longFileListing']!) {
+        output += showFileIcon(directory.path + file);
+      }
+      output += fileName(element, fileStat, file);
 
       if (args['longFileListing']!) {
         output += "\n";
@@ -90,7 +92,7 @@ void run(Map<String, bool> args, List<FileSystemEntity> fileList) async {
       stderr.write('$e');
       exit(2);
     } catch (_) {
-      handleError(path);
+      handleError(file);
     }
   }
 }
