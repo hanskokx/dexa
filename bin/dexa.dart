@@ -10,6 +10,7 @@ import 'features/file_type.dart';
 import 'features/headers.dart';
 import 'features/modification_date.dart';
 import 'features/permissions.dart';
+import 'functions/gather_file_sizes.dart';
 import 'functions/get_path.dart';
 import 'functions/handle_error.dart';
 import 'functions/list_directory_contents.dart';
@@ -51,6 +52,7 @@ void main(List<String> arguments) async {
     directory,
     type: FileSystemEntityType.directory,
   );
+  late int? maxFileSize;
 
   fileList.addAll(directories);
   fileList.addAll(files);
@@ -58,6 +60,8 @@ void main(List<String> arguments) async {
   // ! Main logic starts here
   if (args['showHeaders']! && args['longFileListing']!) {
     displayHeaders(args: args);
+    maxFileSize = await gatherFileSizes(fileList);
+    stderr.write('Max File Size: $maxFileSize\n');
   }
 
   for (FileSystemEntity element in fileList) {
