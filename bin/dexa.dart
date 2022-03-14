@@ -84,6 +84,7 @@ void main(List<String> arguments) async {
           output += fileModificationDate(fileStat);
         }
       }
+
       if (args['showFileTypeIcon']!) {
         String fileToProcess = directory.path + currentFile;
         FileSystemEntityType type = fileStat.type;
