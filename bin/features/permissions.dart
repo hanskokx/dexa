@@ -23,7 +23,7 @@ String filePermissions(FileStat fileStat) {
           break;
       }
     }
-    return output.bold();
+    return output.bold() + ' ';
   }
   return fileStat.modeString();
 }
