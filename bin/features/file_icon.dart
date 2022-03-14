@@ -4,7 +4,7 @@ import '../constants/ansi.dart';
 import '../constants/filetype_icons.dart';
 import '../functions/get_mime_type.dart';
 
-String showFileIcon(String file, FileSystemEntityType type) {
+String showFileIcon(String file, FileSystemEntityType type, {bool? headers}) {
   String output = '';
   String? mimeType;
   String? icon;
@@ -38,8 +38,11 @@ String showFileIcon(String file, FileSystemEntityType type) {
   if (stdout.supportsAnsiEscapes) {
     output += color!;
   }
-
-  output += icon!.padRight(5);
+  if (headers == true) {
+    output += icon!.padRight(5);
+  } else {
+    output += '$icon ';
+  }
   if (stdout.supportsAnsiEscapes) {
     output += ansiResets[AnsiResets.all]!;
   }

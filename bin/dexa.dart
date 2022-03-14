@@ -82,7 +82,8 @@ void main(List<String> arguments) async {
         if (args['showFileTypeIcon']!) {
           String fileToProcess = directory.path + file;
           FileSystemEntityType type = fileStat.type;
-          output += showFileIcon(fileToProcess, type);
+          output +=
+              showFileIcon(fileToProcess, type, headers: args['showHeaders']!);
         }
       }
 
