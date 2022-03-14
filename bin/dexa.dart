@@ -76,11 +76,14 @@ void main(List<String> arguments) async {
 
         output += fileOwner(fileStat);
         output += fileModificationDate(fileStat);
+
+        if (args['longFileListing']! && args['showFileTypeIcon']!) {
+          String fileToProcess = directory.path + file;
+          FileSystemEntityType type = fileStat.type;
+          output += showFileIcon(fileToProcess, type);
+        }
       }
 
-      if (args['longFileListing']! && args['showFileTypeIcon']!) {
-        output += showFileIcon(directory.path + file);
-      }
       output += fileName(element, fileStat, file);
 
       if (args['longFileListing']!) {
