@@ -75,6 +75,7 @@ void main(List<String> arguments) async {
         output += fileType(fileStat);
         output += filePermissions(fileStat);
 
+        // TODO: This should be a `padFileSize` function which can handle both
         output += fileSize(fileStat,
             fileSizeDigits: maxFileSizeLengthInDigits ?? 0, args: args);
 
