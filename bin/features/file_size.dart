@@ -3,15 +3,19 @@ import 'dart:io';
 import '../constants/ansi.dart';
 import '../constants/file_sizes.dart';
 
-String fileSize(FileStat fileStat) {
-  if (fileStat.size == 0) {
-    return "-".padLeft(6, ' ') + " ".dim();
-  }
-
-  String output = fileStat.size.toString().padLeft(6, ' ') + " ";
-
-  if (stdout.supportsAnsiEscapes) {
-    output = output.color(AnsiColors.green).bold();
+String fileSize(
+  FileStat fileStat, {
+  required int fileSizeDigits,
+  required Map<String, bool> args,
+}) {
+  late String output;
+  if (args['humanReadableFileSize']!) {
+    output = fileSizeHumanReadable(fileStat);
+  } else {
+    String nhrfs = nonHumanReadableFileSize(fileStat);
+    int digitsToSubtract = nhrfs.split(RegExp(r'\d')).length - 7;
+    output = " " * (fileSizeDigits - digitsToSubtract);
+    output += ' ' + nhrfs;
   }
   return output;
 }
@@ -20,7 +24,7 @@ String fileSizeHumanReadable(FileStat fileStat) {
   String? fileSizeString = _fileSizeString(fileStat.size);
 
   if (fileStat.size == 0 || fileStat.type == FileSystemEntityType.directory) {
-    return "-".padLeft(6, ' ').dim() + " ";
+    return "-".dim() + " ";
   }
 
   num size = fileStat.size;
@@ -31,7 +35,20 @@ String fileSizeHumanReadable(FileStat fileStat) {
 
   size = (size / sizeDivisor).round();
 
-  String output = (size.toString() + fileSizeString).padLeft(6, ' ') + " ";
+  String output = (size.toString() + fileSizeString) + " ";
+
+  if (stdout.supportsAnsiEscapes) {
+    output = output.color(AnsiColors.green).bold();
+  }
+  return output;
+}
+
+String nonHumanReadableFileSize(FileStat fileStat) {
+  if (fileStat.size == 0) {
+    return "-" + " ".dim();
+  }
+
+  String output = fileStat.size.toString() + " ";
 
   if (stdout.supportsAnsiEscapes) {
     output = output.color(AnsiColors.green).bold();

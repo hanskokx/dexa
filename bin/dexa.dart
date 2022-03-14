@@ -52,16 +52,15 @@ void main(List<String> arguments) async {
     directory,
     type: FileSystemEntityType.directory,
   );
-  late int? maxFileSize;
 
   fileList.addAll(directories);
   fileList.addAll(files);
 
   // ! Main logic starts here
+  late int? maxFileSizeLengthInDigits;
   if (args['showHeaders']! && args['longFileListing']!) {
-    displayHeaders(args: args);
-    maxFileSize = await gatherFileSizes(fileList);
-    stderr.write('Max File Size: $maxFileSize\n');
+    maxFileSizeLengthInDigits = await gatherDigitsOfMaxFileSize(fileList);
+    displayHeaders(args: args, fileSizeDigits: maxFileSizeLengthInDigits);
   }
 
   for (FileSystemEntity element in fileList) {
@@ -76,9 +75,8 @@ void main(List<String> arguments) async {
         output += fileType(fileStat);
         output += filePermissions(fileStat);
 
-        (args['humanReadableFileSize']!)
-            ? output += fileSizeHumanReadable(fileStat)
-            : output += fileSize(fileStat);
+        output += fileSize(fileStat,
+            fileSizeDigits: maxFileSizeLengthInDigits ?? 0, args: args);
 
         output += fileOwner(fileStat);
         output += fileModificationDate(fileStat);
