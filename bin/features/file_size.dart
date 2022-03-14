@@ -5,10 +5,10 @@ import '../constants/file_sizes.dart';
 
 String fileSize(FileStat fileStat) {
   if (fileStat.size == 0) {
-    return "-".padLeft(6, ' ') + " ".dim();
+    return "\t-\t".dim();
   }
 
-  String output = fileStat.size.toString().padLeft(6, ' ') + " ";
+  String output = ' ' + fileStat.size.toString().padLeft(6, ' ') + "\t";
 
   if (stdout.supportsAnsiEscapes) {
     output = output.color(AnsiColors.green).bold();
@@ -20,7 +20,7 @@ String fileSizeHumanReadable(FileStat fileStat) {
   String? fileSizeString = _fileSizeString(fileStat.size);
 
   if (fileStat.size == 0 || fileStat.type == FileSystemEntityType.directory) {
-    return "-".padLeft(6, ' ').dim() + " ";
+    return "-".padLeft(8, ' ').dim() + " ";
   }
 
   num size = fileStat.size;
