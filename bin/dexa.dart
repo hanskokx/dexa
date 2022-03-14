@@ -56,6 +56,9 @@ void main(List<String> arguments) async {
   fileList.addAll(files);
 
   // ! Main logic starts here
+  if (args['showHeaders']! && args['longFileListing']!) {
+    displayHeaders();
+  }
 
   for (FileSystemEntity element in fileList) {
     String output = '';
@@ -64,8 +67,6 @@ void main(List<String> arguments) async {
 
     try {
       FileStat fileStat = await FileStat.stat(file);
-
-      if (args['showHeaders']!) displayHeaders();
 
       if (args['longFileListing']!) {
         output += fileType(fileStat);
