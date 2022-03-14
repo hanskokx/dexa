@@ -72,24 +72,25 @@ void main(List<String> arguments) async {
       FileStat fileStat = await FileStat.stat(currentFile);
 
       if (args['longFileListing']!) {
-        output += fileType(fileStat);
-        output += filePermissions(fileStat);
+        if (args['showHeaders']!) {
+          output += fileType(fileStat);
+          output += filePermissions(fileStat);
 
-        // TODO: This should be a `padFileSize` function which can handle both
-        output += fileSize(fileStat,
-            fileSizeDigits: maxFileSizeLengthInDigits ?? 0, args: args);
+          // TODO: This should be a `padFileSize` function which can handle both
+          output += fileSize(fileStat,
+              fileSizeDigits: maxFileSizeLengthInDigits ?? 0, args: args);
 
-        output += fileOwner(fileStat);
-        output += fileModificationDate(fileStat);
+          output += fileOwner(fileStat);
+          output += fileModificationDate(fileStat);
 
-        if (args['showFileTypeIcon']!) {
-          String fileToProcess = directory.path + currentFile;
-          FileSystemEntityType type = fileStat.type;
-          output +=
-              showFileIcon(fileToProcess, type, headers: args['showHeaders']!);
+          if (args['showFileTypeIcon']!) {
+            String fileToProcess = directory.path + currentFile;
+            FileSystemEntityType type = fileStat.type;
+            output += showFileIcon(fileToProcess, type,
+                headers: args['showHeaders']!);
+          }
         }
       }
-
       output += fileName(element, fileStat, currentFile);
 
       if (args['longFileListing']!) {
