@@ -13,7 +13,11 @@ String fileSize(
     output = fileSizeHumanReadable(fileStat);
   } else {
     String nhrfs = nonHumanReadableFileSize(fileStat);
-    int digitsToSubtract = nhrfs.split(RegExp(r'\d')).length - 7;
+    int digitsToSubtract = 0;
+    digitsToSubtract = nhrfs.split(RegExp(r'\d')).length - 7;
+    if (nhrfs[0] == '-') {
+      digitsToSubtract = 1;
+    }
     output = " " * (fileSizeDigits - digitsToSubtract);
     output += ' ' + nhrfs;
   }
