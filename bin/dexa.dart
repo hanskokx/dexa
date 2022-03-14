@@ -82,14 +82,13 @@ void main(List<String> arguments) async {
 
           output += fileOwner(fileStat);
           output += fileModificationDate(fileStat);
-
-          if (args['showFileTypeIcon']!) {
-            String fileToProcess = directory.path + currentFile;
-            FileSystemEntityType type = fileStat.type;
-            output += showFileIcon(fileToProcess, type,
-                headers: args['showHeaders']!);
-          }
         }
+      }
+      if (args['showFileTypeIcon']!) {
+        String fileToProcess = directory.path + currentFile;
+        FileSystemEntityType type = fileStat.type;
+        output +=
+            showFileIcon(fileToProcess, type, headers: args['showHeaders']!);
       }
       output += fileName(element, fileStat, currentFile);
 
