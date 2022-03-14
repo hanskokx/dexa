@@ -56,7 +56,6 @@ void main(List<String> arguments) async {
   fileList.addAll(files);
 
   // ! Main logic starts here
-  if (args['showHeaders']!) displayHeaders();
 
   for (FileSystemEntity element in fileList) {
     String output = '';
@@ -65,6 +64,8 @@ void main(List<String> arguments) async {
 
     try {
       FileStat fileStat = await FileStat.stat(file);
+
+      if (args['showHeaders']!) displayHeaders();
 
       if (args['longFileListing']!) {
         output += fileType(fileStat);
@@ -77,7 +78,7 @@ void main(List<String> arguments) async {
         output += fileOwner(fileStat);
         output += fileModificationDate(fileStat);
 
-        if (args['longFileListing']! && args['showFileTypeIcon']!) {
+        if (args['showFileTypeIcon']!) {
           String fileToProcess = directory.path + file;
           FileSystemEntityType type = fileStat.type;
           output += showFileIcon(fileToProcess, type);
