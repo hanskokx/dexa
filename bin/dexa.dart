@@ -63,10 +63,10 @@ void main(List<String> arguments) async {
   for (FileSystemEntity element in fileList) {
     String output = '';
 
-    String file = element.uri.toFilePath(windows: Platform.isWindows);
+    String currentFile = element.uri.toFilePath(windows: Platform.isWindows);
 
     try {
-      FileStat fileStat = await FileStat.stat(file);
+      FileStat fileStat = await FileStat.stat(currentFile);
 
       if (args['longFileListing']!) {
         output += fileType(fileStat);
@@ -80,14 +80,14 @@ void main(List<String> arguments) async {
         output += fileModificationDate(fileStat);
 
         if (args['showFileTypeIcon']!) {
-          String fileToProcess = directory.path + file;
+          String fileToProcess = directory.path + currentFile;
           FileSystemEntityType type = fileStat.type;
           output +=
               showFileIcon(fileToProcess, type, headers: args['showHeaders']!);
         }
       }
 
-      output += fileName(element, fileStat, file);
+      output += fileName(element, fileStat, currentFile);
 
       if (args['longFileListing']!) {
         output += "\n";
@@ -100,7 +100,7 @@ void main(List<String> arguments) async {
       stderr.write('$e');
       exit(2);
     } catch (_) {
-      handleError(file);
+      handleError(currentFile);
     }
   }
 }
