@@ -9,7 +9,7 @@ void displayHeaders({
   String header = "";
 
   header += "Permissions".underline() + " ";
-  header += "Size".underline() + (" " * (fileSizeDigits - 5)) + " ";
+  header += "Size".underline() + (" " * (fileSizeDigits - 5)) + "  ";
   // header += "User".underline() + " ";
   header += "Date Modified".underline() + " ".padRight(4, " ");
   if (args['showFileTypeIcon']!) {
