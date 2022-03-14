@@ -39,10 +39,9 @@ String showFileIcon(String file, FileSystemEntityType type) {
     output += color!;
   }
 
-  output += icon!;
+  output += icon!.padRight(5);
   if (stdout.supportsAnsiEscapes) {
     output += ansiResets[AnsiResets.all]!;
   }
-  output += ' ';
-  return output.padRight(2);
+  return output;
 }

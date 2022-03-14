@@ -9,6 +9,7 @@ void displayHeaders() {
   header += "Size".underline() + " ";
   // header += "User".underline() + " ";
   header += "Date Modified".underline() + " ".padRight(4, " ");
+  header += "Icon".underline() + " ";
   header += "Name".underline() + " ";
 
   header += "\n";
