@@ -57,7 +57,7 @@ void main(List<String> arguments) async {
 
   // ! Main logic starts here
   if (args['showHeaders']! && args['longFileListing']!) {
-    displayHeaders();
+    displayHeaders(args: args);
   }
 
   for (FileSystemEntity element in fileList) {

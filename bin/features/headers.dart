@@ -2,14 +2,16 @@ import 'dart:io';
 
 import '../constants/ansi.dart';
 
-void displayHeaders() {
+void displayHeaders({required Map<String, bool> args}) {
   String header = "";
 
   header += "Permissions".underline() + " ";
   header += "Size".underline() + " ";
   // header += "User".underline() + " ";
   header += "Date Modified".underline() + " ".padRight(4, " ");
-  header += "Icon".underline() + " ";
+  if (args['showFileTypeIcon']!) {
+    header += "Icon".underline() + " ";
+  }
   header += "Name".underline() + " ";
 
   header += "\n";
