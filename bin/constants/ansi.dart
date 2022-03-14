@@ -46,8 +46,7 @@ enum Args {
   listAllFiles
 }
 
-extension StringExtension on String {
-  static const Map<AnsiCodes, String> ansiCodes = {
+  const Map<AnsiCodes, String> ansiCodes = {
     AnsiCodes.bold: "\x1B[1m",
     AnsiCodes.dim: "\x1B[2m",
     AnsiCodes.italic: "\x1B[3m",
@@ -58,7 +57,7 @@ extension StringExtension on String {
     AnsiCodes.strikethrough: "\x1B[9m",
   };
 
-  static const Map<AnsiColors, String> ansiForegroundColors = {
+  const Map<AnsiColors, String> ansiForegroundColors = {
     AnsiColors.black: "\x1B[30m",
     AnsiColors.red: "\x1B[31m",
     AnsiColors.green: "\x1B[32m",
@@ -77,7 +76,7 @@ extension StringExtension on String {
     AnsiColors.brightWhite: "\x1B[97m",
   };
 
-  static const Map<AnsiResets, String> ansiResets = {
+  const Map<AnsiResets, String> ansiResets = {
     AnsiResets.all: "\x1B[0m",
     AnsiResets.bold: "\x1B[22m",
     AnsiResets.dim: "\x1B[22m",
@@ -88,6 +87,8 @@ extension StringExtension on String {
     AnsiResets.invisible: "\x1B[28m",
     AnsiResets.strikethrough: "\x1B[29m",
   };
+extension StringExtension on String {
+
 
   String color(AnsiColors color) {
     return ansiForegroundColors[color]! + this + ansiResets[AnsiResets.all]!;

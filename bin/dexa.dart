@@ -25,6 +25,7 @@ void main(List<String> arguments) async {
   parser.addFlag("long", negatable: false, abbr: 'l');
   parser.addFlag("headers", negatable: false, abbr: 'H');
   parser.addFlag("recursive", negatable: false, abbr: 'R');
+  parser.addFlag("icons", negatable: false, abbr: 'I');
 
   ArgResults argResults = parser.parse(arguments);
 
@@ -35,6 +36,7 @@ void main(List<String> arguments) async {
         (argResults["human-readable"] == true) ? true : false,
     'showHeaders': (argResults["headers"] == true) ? true : false,
     'listRecursively': (argResults["recursive"] == true) ? true : false,
+    'showFileTypeIcon': (argResults["icons"] == true) ? true : false,
     'listAllFiles': (argResults["all"] == true)
         ? true
         : false, // https://github.com/dart-lang/sdk/issues/40303
@@ -76,7 +78,7 @@ void main(List<String> arguments) async {
         output += fileModificationDate(fileStat);
       }
 
-      if (args['longFileListing']!) {
+      if (args['longFileListing']! && args['showFileTypeIcon']!) {
         output += showFileIcon(directory.path + file);
       }
       output += fileName(element, fileStat, file);
