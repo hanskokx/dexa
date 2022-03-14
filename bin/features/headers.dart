@@ -7,15 +7,20 @@ void displayHeaders({
   required int fileSizeDigits,
 }) {
   String header = "";
+  String padding = '';
+
+  if (stdout.supportsAnsiEscapes) {
+    padding = ' ';
+  }
 
   header += "Permissions".underline() + " ";
-  header += "Size".underline() + (" " * (fileSizeDigits - 5)) + "  ";
+  header += "Size".underline() + (" " * (fileSizeDigits - 5)) + " " + padding;
   // header += "User".underline() + " ";
-  header += "Date Modified".underline() + " ".padRight(4, " ");
+  header += "Date Modified".underline() + "   " + padding;
   if (args['showFileTypeIcon']!) {
-    header += "Icon".underline() + " ";
+    header += "Icon".underline();
   }
-  header += "Name".underline() + " ";
+  header += " " + "Name".underline() + " " + padding;
 
   header += "\n";
   stdout.write(header);
