@@ -1,4 +1,4 @@
-import 'package:mime/mime.dart';
+part of '../dexa.dart';
 
 String? getMimeType(String file) {
   late String? mimeType;

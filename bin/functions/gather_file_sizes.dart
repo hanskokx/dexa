@@ -1,5 +1,4 @@
-import 'dart:io';
-import 'dart:math';
+part of '../dexa.dart';
 
 Future<int> gatherDigitsOfMaxFileSize(List<FileSystemEntity> files) async {
   List<int> fileSizes = [0];

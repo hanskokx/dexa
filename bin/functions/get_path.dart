@@ -1,4 +1,4 @@
-import 'dart:io';
+part of '../dexa.dart';
 
 Future<Directory> getPath(argResults) async {
   List<String?> path = argResults.rest;

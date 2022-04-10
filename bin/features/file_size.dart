@@ -1,7 +1,4 @@
-import 'dart:io';
-
-import '../constants/ansi.dart';
-import '../constants/file_sizes.dart';
+part of '../dexa.dart';
 
 String fileSize(
   FileStat fileStat, {

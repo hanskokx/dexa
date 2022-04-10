@@ -2,18 +2,22 @@ import 'dart:io';
 
 import 'package:args/args.dart';
 
-import 'features/file_icon.dart';
-import 'features/file_name.dart';
-import 'features/file_owner.dart';
-import 'features/file_size.dart';
-import 'features/file_type.dart';
-import 'features/headers.dart';
-import 'features/modification_date.dart';
-import 'features/permissions.dart';
-import 'functions/gather_file_sizes.dart';
-import 'functions/get_path.dart';
-import 'functions/handle_error.dart';
-import 'functions/list_directory_contents.dart';
+part 'constants/ansi.dart';
+part 'constants/file_sizes.dart';
+part 'constants/filetype_icons.dart';
+part 'features/file_icon.dart';
+part 'features/file_name.dart';
+part 'features/file_owner.dart';
+part 'features/file_size.dart';
+part 'features/file_type.dart';
+part 'features/headers.dart';
+part 'features/modification_date.dart';
+part 'features/permissions.dart';
+part 'functions/gather_file_sizes.dart';
+part 'functions/get_mime_type.dart';
+part 'functions/get_path.dart';
+part 'functions/handle_error.dart';
+part 'functions/list_directory_contents.dart';
 
 void main(List<String> arguments) async {
   exitCode = 0; // presume success
@@ -25,7 +29,7 @@ void main(List<String> arguments) async {
   parser.addFlag("human-readable", negatable: false, abbr: 'h');
   parser.addFlag("long", negatable: false, abbr: 'l');
   parser.addFlag("headers", negatable: false, abbr: 'H');
-  parser.addFlag("recursive", negatable: false, abbr: 'R');
+  // parser.addFlag("recursive", negatable: false, abbr: 'R');
   parser.addFlag("icons", negatable: false, abbr: 'I');
 
   ArgResults argResults = parser.parse(arguments);
@@ -36,7 +40,7 @@ void main(List<String> arguments) async {
     'humanReadableFileSize':
         (argResults["human-readable"] == true) ? true : false,
     'showHeaders': (argResults["headers"] == true) ? true : false,
-    'listRecursively': (argResults["recursive"] == true) ? true : false,
+    // 'listRecursively': (argResults["recursive"] == true) ? true : false,
     'showFileTypeIcon': (argResults["icons"] == true) ? true : false,
     'listAllFiles': (argResults["all"] == true)
         ? true
@@ -56,7 +60,7 @@ void main(List<String> arguments) async {
   fileList.addAll(directories);
   fileList.addAll(files);
 
-  // ! Main logic starts here
+  // * Main logic starts here
   late int? maxFileSizeLengthInDigits;
   if (args['showHeaders']! && args['longFileListing']!) {
     maxFileSizeLengthInDigits = await gatherDigitsOfMaxFileSize(fileList);

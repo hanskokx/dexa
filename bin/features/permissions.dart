@@ -1,6 +1,4 @@
-import 'dart:io';
-
-import '../constants/ansi.dart';
+part of '../dexa.dart';
 
 String filePermissions(FileStat fileStat) {
   String output = '';

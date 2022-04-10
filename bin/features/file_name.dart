@@ -1,8 +1,4 @@
-import 'dart:io';
-
-import 'package:path/path.dart';
-
-import '../constants/ansi.dart';
+part of '../dexa.dart';
 
 String fileName(FileSystemEntity element, FileStat fileStat, String path) {
   String output = basename(path);

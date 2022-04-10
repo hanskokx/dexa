@@ -1,6 +1,4 @@
-import 'dart:io';
-
-import '../constants/ansi.dart';
+part of '../dexa.dart';
 
 String fileType(FileStat fileStat) {
   String? type = fileStat.type.toString()[0];

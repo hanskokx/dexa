@@ -1,6 +1,4 @@
-import 'dart:io';
-
-import '../constants/ansi.dart';
+part of '../dexa.dart';
 
 void displayHeaders({
   required Map<String, bool> args,
@@ -16,11 +14,11 @@ void displayHeaders({
   header += "Permissions".underline() + " ";
   header += "Size".underline() + (" " * (fileSizeDigits - 5)) + " " + padding;
   // header += "User".underline() + " ";
-  header += "Date Modified".underline() + "   " + padding;
+  header += "Date Modified".underline() + "  " + padding;
   if (args['showFileTypeIcon']!) {
-    header += "Icon".underline();
+    header += " " + "Icon".underline() + padding;
   }
-  header += " " + "Name".underline() + " " + padding;
+  header += "Name".underline() + " " + padding;
 
   header += "\n";
   stdout.write(header);

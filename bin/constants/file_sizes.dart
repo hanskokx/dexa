@@ -1,3 +1,5 @@
+part of '../dexa.dart';
+
 const Map<int, String> fileSizes = {
   0: " ",
   1: " ",

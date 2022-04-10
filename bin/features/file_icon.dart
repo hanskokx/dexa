@@ -1,8 +1,4 @@
-import 'dart:io';
-
-import '../constants/ansi.dart';
-import '../constants/filetype_icons.dart';
-import '../functions/get_mime_type.dart';
+part of '../dexa.dart';
 
 String showFileIcon(String file, FileSystemEntityType type, {bool? headers}) {
   String output = '';

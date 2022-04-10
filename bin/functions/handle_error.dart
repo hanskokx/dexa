@@ -1,4 +1,4 @@
-import 'dart:io';
+part of '../dexa.dart';
 
 void handleError(error) async {
   stderr.writeln(error.toString() + "\n");
