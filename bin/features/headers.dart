@@ -11,14 +11,14 @@ void displayHeaders({
     padding = ' ';
   }
 
-  header += "Permissions".underline() + " ";
-  header += "Size".underline() + (" " * (fileSizeDigits - 5)) + " " + padding;
+  header += "${"Permissions".underline()} ";
+  header += "${"Size".underline()}${" " * (fileSizeDigits - 5)} $padding";
   // header += "User".underline() + " ";
-  header += "Date Modified".underline() + "  " + padding;
+  header += "${"Date Modified".underline()}  $padding";
   if (args['showFileTypeIcon']!) {
-    header += " " + "Icon".underline() + padding;
+    header += " ${"Icon".underline()}$padding";
   }
-  header += "Name".underline() + " " + padding;
+  header += "${"Name".underline()} $padding";
 
   header += "\n";
   stdout.write(header);

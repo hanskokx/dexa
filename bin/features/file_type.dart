@@ -14,5 +14,5 @@ String fileType(FileStat fileStat) {
     type = type.bold();
   }
 
-  return (type);
+  return type;
 }

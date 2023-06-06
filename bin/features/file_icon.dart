@@ -18,12 +18,12 @@ String showFileIcon(String file, FileSystemEntityType type, {bool? headers}) {
       if (mimeType != null) {
         // We have a mime type, so let's check if it's in the list of known file types.
         mimeType = mimeType.split('/')[1];
-        Map? data = iconSet[mimeType];
+        final Map? data = iconSet[mimeType];
 
         // The file type has been found in the list of known file types.
         if (data != null) {
-          icon = data['icon'];
-          color = data['color'];
+          icon = data['icon'] as String?;
+          color = data['color'] as String?;
         }
       }
       break;

@@ -3,14 +3,14 @@ description: A Dart implementation of exa
 version: 1.0.0
 # homepage: https://www.example.com
 environment:
-  sdk: ">=2.14.0 <3.0.0"
+  sdk: ">=3.0.0 <4.0.0"
 
 # dependencies:
 #   path: ^1.8.0
 dev_dependencies:
-  lints: ^1.0.0
+  flutter_lints: ^2.0.0
 dependencies:
   args: ^2.2.0
-  intl: ^0.17.0
-  path: ^1.8.0
+  intl: ^0.18.1
   mime: ^1.0.1
+  path: ^1.8.0

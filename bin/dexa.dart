@@ -1,10 +1,11 @@
-import 'dart:io';
-import 'package:path/path.dart';
-import 'package:intl/intl.dart';
-import 'dart:math';
-import 'package:mime/mime.dart';
 import 'dart:async';
+import 'dart:io';
+import 'dart:math';
+
 import 'package:args/args.dart';
+import 'package:intl/intl.dart';
+import 'package:mime/mime.dart';
+import 'package:path/path.dart';
 
 part 'constants/ansi.dart';
 part 'constants/file_sizes.dart';
@@ -36,10 +37,10 @@ void main(List<String> arguments) async {
   // parser.addFlag("recursive", negatable: false, abbr: 'R');
   parser.addFlag("icons", negatable: false, abbr: 'I');
 
-  ArgResults argResults = parser.parse(arguments);
+  final ArgResults argResults = parser.parse(arguments);
 
   // Read parser flags
-  Map<String, bool> args = {
+  final Map<String, bool> args = {
     'longFileListing': (argResults["long"] == true) ? true : false,
     'humanReadableFileSize':
         (argResults["human-readable"] == true) ? true : false,
@@ -53,10 +54,10 @@ void main(List<String> arguments) async {
 
   // List all files and directories in the given path, then sort with dirctories on top
   directory = await getPath(argResults);
-  List<FileSystemEntity> fileList = [];
-  List<FileSystemEntity> files =
+  final List<FileSystemEntity> fileList = [];
+  final List<FileSystemEntity> files =
       await listDirectoryContents(directory, type: FileSystemEntityType.file);
-  List<FileSystemEntity> directories = await listDirectoryContents(
+  final List<FileSystemEntity> directories = await listDirectoryContents(
     directory,
     type: FileSystemEntityType.directory,
   );
@@ -71,21 +72,25 @@ void main(List<String> arguments) async {
     displayHeaders(args: args, fileSizeDigits: maxFileSizeLengthInDigits);
   }
 
-  for (FileSystemEntity element in fileList) {
+  for (final FileSystemEntity element in fileList) {
     String output = '';
 
-    String currentFile = element.uri.toFilePath(windows: Platform.isWindows);
+    final String currentFile =
+        element.uri.toFilePath(windows: Platform.isWindows);
 
     try {
-      FileStat fileStat = await FileStat.stat(currentFile);
+      final FileStat fileStat = await FileStat.stat(currentFile);
 
       if (args['longFileListing']!) {
         if (args['showHeaders']!) {
           output += fileType(fileStat);
           output += filePermissions(fileStat);
 
-          output += fileSize(fileStat,
-              fileSizeDigits: maxFileSizeLengthInDigits ?? 0, args: args);
+          output += fileSize(
+            fileStat,
+            fileSizeDigits: maxFileSizeLengthInDigits ?? 0,
+            args: args,
+          );
 
           output += fileOwner(fileStat);
           output += fileModificationDate(fileStat);
@@ -93,8 +98,8 @@ void main(List<String> arguments) async {
       }
 
       if (args['showFileTypeIcon']!) {
-        String fileToProcess = directory.path + currentFile;
-        FileSystemEntityType type = fileStat.type;
+        final String fileToProcess = directory.path + currentFile;
+        final FileSystemEntityType type = fileStat.type;
         output +=
             showFileIcon(fileToProcess, type, headers: args['showHeaders']!);
       }
@@ -111,7 +116,7 @@ void main(List<String> arguments) async {
       stderr.write('$e');
       exit(2);
     } catch (_) {
-      handleError(currentFile);
+      await handleError(currentFile);
     }
   }
 }

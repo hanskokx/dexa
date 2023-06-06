@@ -9,34 +9,34 @@ String fileSize(
   if (args['humanReadableFileSize']!) {
     output = fileSizeHumanReadable(fileStat);
   } else {
-    String nhrfs = nonHumanReadableFileSize(fileStat);
+    final String nhrfs = nonHumanReadableFileSize(fileStat);
     int digitsToSubtract = 0;
     digitsToSubtract = nhrfs.split(RegExp(r'\d')).length - 7;
     if (nhrfs[0] == '-') {
       digitsToSubtract = 1;
     }
     output = " " * (fileSizeDigits - digitsToSubtract);
-    output += ' ' + nhrfs;
+    output += ' $nhrfs';
   }
   return output;
 }
 
 String fileSizeHumanReadable(FileStat fileStat) {
-  String? fileSizeString = _fileSizeString(fileStat.size);
+  final String fileSizeString = _fileSizeString(fileStat.size);
 
   if (fileStat.size == 0 || fileStat.type == FileSystemEntityType.directory) {
-    return "-".dim() + " ";
+    return "${"-".dim()} ";
   }
 
   num size = fileStat.size;
-  int nextIndex =
+  final int nextIndex =
       fileSizes.entries.firstWhere((element) => element.key > size).key;
-  int sizeDivisor =
+  final int sizeDivisor =
       fileSizes.entries.where((element) => element.key < nextIndex).last.key;
 
   size = (size / sizeDivisor).round();
 
-  String output = (size.toString() + fileSizeString) + " ";
+  String output = "$size$fileSizeString ";
 
   if (stdout.supportsAnsiEscapes) {
     output = output.color(AnsiColors.green).bold();
@@ -46,10 +46,10 @@ String fileSizeHumanReadable(FileStat fileStat) {
 
 String nonHumanReadableFileSize(FileStat fileStat) {
   if (fileStat.size == 0) {
-    return "-" + " ".dim();
+    return "-${" ".dim()}";
   }
 
-  String output = fileStat.size.toString() + " ";
+  String output = "${fileStat.size} ";
 
   if (stdout.supportsAnsiEscapes) {
     output = output.color(AnsiColors.green).bold();
@@ -58,7 +58,7 @@ String nonHumanReadableFileSize(FileStat fileStat) {
 }
 
 String _fileSizeString(int size) {
-  String? fileSizeString = fileSizes.entries
+  final String fileSizeString = fileSizes.entries
       .firstWhere((element) => element.key >= size)
       .value
       .toString();

@@ -3,9 +3,9 @@ part of '../dexa.dart';
 String filePermissions(FileStat fileStat) {
   String output = '';
   if (stdout.supportsAnsiEscapes) {
-    List<String> permissions = fileStat.modeString().split("");
+    final List<String> permissions = fileStat.modeString().split("");
 
-    for (String i in permissions) {
+    for (final String i in permissions) {
       switch (i) {
         case "r":
           output += "r".color(AnsiColors.yellow);
@@ -21,7 +21,7 @@ String filePermissions(FileStat fileStat) {
           break;
       }
     }
-    return output.bold() + ' ';
+    return '${output.bold()} ';
   }
   return fileStat.modeString();
 }
