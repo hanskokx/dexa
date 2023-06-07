@@ -37,12 +37,12 @@ String showFileIcon({
         break;
       }
 
-      String? mimeType = lookupMimeType(path + file)?.split('/')[1];
-      if (mimeType == 'plain' ||
-          mimeType == null ||
-          wellKnownFileExtensions.contains(mimeType)) {
-        mimeType = file.split('.').last;
-      }
+      // String? mimeType = lookupMimeType(path + file)?.split('/')[1];
+      // if (mimeType == 'plain' ||
+      // mimeType == null ||
+      // wellKnownFileExtensions.contains(mimeType)) {
+      final String mimeType = file.split('.').last.toLowerCase();
+      // }
 
       final Map<String, String>? data = iconSet[mimeType];
 

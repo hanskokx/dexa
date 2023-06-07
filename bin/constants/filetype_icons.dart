@@ -14,6 +14,27 @@ Map<String, String> defaultIcons = {
 
 // RGB to ansi format: \x1b[38;2;<r>;<g>;<b>m
 Map<String, Map<String, String>> iconSet = {
+  "bak": {"icon": "󰁯", "color": ""},
+  "backup": {"icon": "󰁯", "color": ""},
+  "gif": {"icon": "󰈟", "color": ""},
+  "bin": {"icon": "", "color": ""},
+  "csv": {"icon": "", "color": ""},
+  "pfx": {"icon": "󰄤", "color": ""},
+  "crt": {"icon": "󰄤", "color": ""},
+  "ps1": {"icon": "", "color": ""},
+  "lnk": {"icon": "\uEAEE", "color": ""},
+  "mp3": {"icon": "", "color": ""},
+  "mp4": {"icon": "󰕧", "color": ""},
+  "keystore": {"icon": "󰈡", "color": ""},
+  "jks": {"icon": "󰈡", "color": ""},
+  "xlsx": {"icon": "󰈛", "color": ""},
+  "xls": {"icon": "󰈛", "color": ""},
+  "pptx": {"icon": "󰈧", "color": ""},
+  "ppt": {"icon": "󰈧", "color": ""},
+  "docx": {"icon": "󰈬", "color": ""},
+  "doc": {"icon": "󰈬", "color": ""},
+  "png": {"icon": "󰸭", "color": ""},
+  "jpg": {"icon": "󰈥", "color": ""},
   "mi": {"icon": "", "color": ""},
   "dll": {"icon": "󱁻", "color": ""},
   "txt": {"icon": "", "color": ""},
@@ -40,7 +61,7 @@ Map<String, Map<String, String>> iconSet = {
     "icon": "\ue628",
     "color": "\x1b[38;2;3;136;209m"
   }, // typescript
-  "pdf": {"icon": "\uf724", "color": "\x1b[38;2;244;68;62m"}, // pdf
+  "pdf": {"icon": "󰈦", "color": "\x1b[38;2;244;68;62m"}, // pdf
   "table": {"icon": "\uf71a", "color": "\x1b[38;2;139;195;74m"}, // table
   "visualstudio": {
     "icon": "\ue70c",
