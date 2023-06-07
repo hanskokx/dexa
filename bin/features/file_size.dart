@@ -3,10 +3,10 @@ part of '../dexa.dart';
 String fileSize(
   FileStat fileStat, {
   required int fileSizeDigits,
-  required Map<String, bool> args,
+  bool humanReadableFileSize = false,
 }) {
   late String output;
-  if (args['humanReadableFileSize']!) {
+  if (humanReadableFileSize) {
     output = fileSizeHumanReadable(fileStat);
   } else {
     final String nhrfs = nonHumanReadableFileSize(fileStat);

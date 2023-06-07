@@ -7,6 +7,8 @@ import 'package:intl/intl.dart';
 import 'package:mime/mime.dart';
 import 'package:path/path.dart';
 
+import 'functions/argument_parser.dart';
+
 part 'constants/ansi.dart';
 part 'constants/file_sizes.dart';
 part 'constants/filetype_icons.dart';
@@ -20,40 +22,19 @@ part 'features/modification_date.dart';
 part 'features/permissions.dart';
 part 'functions/gather_file_sizes.dart';
 part 'functions/get_mime_type.dart';
-part 'functions/get_path.dart';
 part 'functions/handle_error.dart';
 part 'functions/list_directory_contents.dart';
 
 void main(List<String> arguments) async {
   exitCode = 0; // presume success
-  final parser = ArgParser();
-  late Directory directory;
+  final ArgParser parser = ArgParser();
 
-  // Set parser flags
-  parser.addFlag("all", negatable: false, abbr: 'a');
-  parser.addFlag("human-readable", negatable: false, abbr: 'h');
-  parser.addFlag("long", negatable: false, abbr: 'l');
-  parser.addFlag("headers", negatable: false, abbr: 'H');
-  // parser.addFlag("recursive", negatable: false, abbr: 'R');
-  parser.addFlag("icons", negatable: false, abbr: 'I');
-
-  final ArgResults argResults = parser.parse(arguments);
-
-  // Read parser flags
-  final Map<String, bool> args = {
-    'longFileListing': (argResults["long"] == true) ? true : false,
-    'humanReadableFileSize':
-        (argResults["human-readable"] == true) ? true : false,
-    'showHeaders': (argResults["headers"] == true) ? true : false,
-    // 'listRecursively': (argResults["recursive"] == true) ? true : false,
-    'showFileTypeIcon': (argResults["icons"] == true) ? true : false,
-    'listAllFiles': (argResults["all"] == true)
-        ? true
-        : false, // https://github.com/dart-lang/sdk/issues/40303
-  };
+  final (Directory directory, UserArguments args) = parseArguments(
+    parser,
+    arguments: arguments,
+  );
 
   // List all files and directories in the given path, then sort with dirctories on top
-  directory = await getPath(argResults);
   final List<FileSystemEntity> fileList = [];
   final List<FileSystemEntity> files =
       await listDirectoryContents(directory, type: FileSystemEntityType.file);
@@ -66,30 +47,33 @@ void main(List<String> arguments) async {
   fileList.addAll(files);
 
   // * Main logic starts here
-  late int? maxFileSizeLengthInDigits;
-  if (args['showHeaders']! && args['longFileListing']!) {
+  String output = '';
+  int maxFileSizeLengthInDigits = 0;
+
+  if (args.showHeaders && args.longFileListing) {
     maxFileSizeLengthInDigits = await gatherDigitsOfMaxFileSize(fileList);
-    displayHeaders(args: args, fileSizeDigits: maxFileSizeLengthInDigits);
+    output += getHeaders(
+      showFileTypeIcon: args.showFileTypeIcon,
+      fileSizeDigits: maxFileSizeLengthInDigits,
+    );
   }
 
   for (final FileSystemEntity element in fileList) {
-    String output = '';
-
     final String currentFile =
         element.uri.toFilePath(windows: Platform.isWindows);
 
     try {
       final FileStat fileStat = await FileStat.stat(currentFile);
 
-      if (args['longFileListing']!) {
-        if (args['showHeaders']!) {
+      if (args.longFileListing) {
+        if (args.showHeaders) {
           output += fileType(fileStat);
           output += filePermissions(fileStat);
 
           output += fileSize(
             fileStat,
-            fileSizeDigits: maxFileSizeLengthInDigits ?? 0,
-            args: args,
+            fileSizeDigits: maxFileSizeLengthInDigits,
+            humanReadableFileSize: args.humanReadableFileSize,
           );
 
           output += fileOwner(fileStat);
@@ -97,15 +81,18 @@ void main(List<String> arguments) async {
         }
       }
 
-      if (args['showFileTypeIcon']!) {
+      if (args.showFileTypeIcon) {
         final String fileToProcess = directory.path + currentFile;
         final FileSystemEntityType type = fileStat.type;
-        output +=
-            showFileIcon(fileToProcess, type, headers: args['showHeaders']!);
+        output += showFileIcon(
+          fileToProcess,
+          type,
+          showHeaders: args.showHeaders,
+        );
       }
       output += fileName(element, fileStat, currentFile);
 
-      if (args['longFileListing']!) {
+      if (args.longFileListing) {
         output += "\n";
       } else {
         output += "  ";

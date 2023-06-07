@@ -1,6 +1,10 @@
 part of '../dexa.dart';
 
-String showFileIcon(String file, FileSystemEntityType type, {bool? headers}) {
+String showFileIcon(
+  String file,
+  FileSystemEntityType type, {
+  bool showHeaders = false,
+}) {
   String output = '';
   String? mimeType;
   String? icon;
@@ -34,7 +38,7 @@ String showFileIcon(String file, FileSystemEntityType type, {bool? headers}) {
   if (stdout.supportsAnsiEscapes) {
     output += color!;
   }
-  if (headers == true) {
+  if (showHeaders) {
     output += icon!.padRight(5);
   } else {
     output += '$icon ';

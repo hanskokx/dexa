@@ -10,9 +10,9 @@ Future<List<FileSystemEntity>> listDirectoryContents(
   final Stream<FileSystemEntity> lister = dir.list(recursive: false);
 
   lister.listen(
-    (file) async {
-      final FileStat currentFileStat = await FileStat.stat(file.path);
-      if (currentFileStat.type == type) {
+    (FileSystemEntity file) async {
+      final FileStat fileStatistics = await FileStat.stat(file.path);
+      if (fileStatistics.type == type) {
         files.add(file);
       }
     },
