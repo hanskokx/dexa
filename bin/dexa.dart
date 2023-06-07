@@ -21,7 +21,6 @@ part 'features/headers.dart';
 part 'features/modification_date.dart';
 part 'features/permissions.dart';
 part 'functions/gather_file_sizes.dart';
-part 'functions/get_mime_type.dart';
 part 'functions/handle_error.dart';
 part 'functions/list_directory_contents.dart';
 
@@ -84,6 +83,7 @@ void main(List<String> arguments) async {
       if (args.showFileTypeIcon) {
         final String fileToProcess = directory.path + currentFile;
         final FileSystemEntityType type = fileStat.type;
+
         output += showFileIcon(
           fileToProcess,
           type,

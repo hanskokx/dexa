@@ -6,7 +6,6 @@ String showFileIcon(
   bool showHeaders = false,
 }) {
   String output = '';
-  String? mimeType;
   String? icon;
   String? color;
 
@@ -18,17 +17,15 @@ String showFileIcon(
       // TODO: Handle this case.
       break;
     default:
-      mimeType = getMimeType(file);
-      if (mimeType != null) {
-        // We have a mime type, so let's check if it's in the list of known file types.
-        mimeType = mimeType.split('/')[1];
-        final Map? data = iconSet[mimeType];
+      final String mimeType =
+          lookupMimeType(file)?.split('/')[1] ?? file.split('.').last;
 
-        // The file type has been found in the list of known file types.
-        if (data != null) {
-          icon = data['icon'] as String?;
-          color = data['color'] as String?;
-        }
+      final Map<String, String>? data = iconSet[mimeType];
+
+      // The file type has been found in the list of known file types.
+      if (data != null) {
+        icon = data['icon'];
+        color = data['color'];
       }
       break;
   }
