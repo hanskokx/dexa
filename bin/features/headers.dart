@@ -9,7 +9,7 @@ void writeHeaders({
   stdout.write("Permissions".underline());
   stdout.write(padding);
   stdout.write("Size".underline());
-  stdout.write(padding * (fileSizeDigits - 3));
+  stdout.write(padding * fileSizeDigits);
   // header += "User".underline() + " ";
   stdout.write("Date Modified".underline());
   stdout.write(padding * 4);

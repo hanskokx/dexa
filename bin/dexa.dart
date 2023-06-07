@@ -48,10 +48,12 @@ void main(List<String> arguments) async {
 
   // * Main logic starts here
   String output = '';
-  int maxFileSizeLengthInDigits = 0;
+  final int maxFileSizeLengthInDigits = await gatherDigitsOfMaxFileSize(
+    fileList,
+    isHumanReadable: args.humanReadableFileSize,
+  );
 
   if (args.showHeaders && args.longFileListing) {
-    maxFileSizeLengthInDigits = await gatherDigitsOfMaxFileSize(fileList);
     writeHeaders(
       showFileTypeIcon: args.showFileTypeIcon,
       fileSizeDigits: maxFileSizeLengthInDigits,

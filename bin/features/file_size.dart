@@ -3,11 +3,22 @@ part of '../dexa.dart';
 String fileSize(
   FileStat fileStat, {
   required int fileSizeDigits,
-  bool humanReadableFileSize = false,
+  required bool humanReadableFileSize,
 }) {
-  late String output;
+  String output = ' ';
   if (humanReadableFileSize) {
-    output = fileSizeHumanReadable(fileStat);
+    final String fileSize = fileSizeHumanReadable(fileStat);
+    output += fileSize;
+
+    int digits = fileSizeDigits + fileSize.length;
+
+    if (stdout.supportsAnsiEscapes) digits -= 17;
+
+    if (fileStat.type == FileSystemEntityType.directory) {
+      digits = fileSizeDigits + 3;
+    }
+
+    output += ' ' * digits;
   } else {
     final String nhrfs = nonHumanReadableFileSize(fileStat);
     int digitsToSubtract = 0;
@@ -25,7 +36,9 @@ String fileSizeHumanReadable(FileStat fileStat) {
   final String fileSizeString = _fileSizeString(fileStat.size);
 
   if (fileStat.size == 0 || fileStat.type == FileSystemEntityType.directory) {
-    return "${"-".dim()} ";
+    if (stdout.supportsAnsiEscapes) {
+      return '-'.dim();
+    }
   }
 
   num size = fileStat.size;
@@ -36,7 +49,7 @@ String fileSizeHumanReadable(FileStat fileStat) {
 
   size = (size / sizeDivisor).round();
 
-  String output = "$size$fileSizeString ";
+  String output = "$size$fileSizeString";
 
   if (stdout.supportsAnsiEscapes) {
     output = output.color(AnsiColors.green).bold();
