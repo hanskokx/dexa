@@ -12,9 +12,12 @@ String showFileIcon(
   switch (type) {
     case FileSystemEntityType.directory:
       icon = defaultIcons['dir'];
+
+      if (file.contains('.git')) icon = iconSet['git']?['icon'];
+
       break;
     case FileSystemEntityType.link:
-      // TODO: Handle this case.
+      icon = iconSet['symlink']?['icon'];
       break;
     default:
       final String mimeType =

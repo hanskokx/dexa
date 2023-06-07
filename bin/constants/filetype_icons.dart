@@ -12,8 +12,10 @@ Map<String, String> defaultIcons = {
 
 // RGB to ansi format: \x1b[38;2;<r>;<g>;<b>m
 Map<String, Map<String, String>> iconSet = {
+  "symlink": {"icon": "\uf1177", "color": "\x1b[38;2;228;79;57m"}, // symlink
   "html": {"icon": "\uf13b", "color": "\x1b[38;2;228;79;57m"}, // html
   "markdown": {"icon": "\uf853", "color": "\x1b[38;2;66;165;245m"}, // markdown
+  "md": {"icon": "\uf853", "color": "\x1b[38;2;66;165;245m"}, // markdown
   "css": {"icon": "\uf81b", "color": "\x1b[38;2;66;165;245m"}, // css
   "sass": {"icon": "\ue603", "color": "\x1b[38;2;237;80;122m"}, // sass
   "less": {"icon": "\ue60b", "color": "\x1b[38;2;2;119;189m"}, // less
@@ -25,6 +27,7 @@ Map<String, Map<String, String>> iconSet = {
     "icon": "\ue74e",
     "color": "\x1b[38;2;255;202;61m"
   }, // javascript
+  "js": {"icon": "\ue74e", "color": "\x1b[38;2;255;202;61m"}, // javascript
   "react": {"icon": "\ue7ba", "color": "\x1b[38;2;35;188;212m"}, // react
   "react_ts": {"icon": "\ue7ba", "color": "\x1b[38;2;36;142;211m"}, // react_ts
   "settings": {"icon": "\uf013", "color": "\x1b[38;2;66;165;245m"}, // settings
@@ -88,6 +91,7 @@ Map<String, Map<String, String>> iconSet = {
   "xaml": {"icon": "\ufb72", "color": "\x1b[38;2;66;165;245m"}, // xaml
   "haskell": {"icon": "\ue61f", "color": "\x1b[38;2;254;168;62m"}, // haskell
   "git": {"icon": "\ue702", "color": "\x1b[38;2;229;77;58m"}, // git
+  "gitignore": {"icon": "\ue702", "color": "\x1b[38;2;229;77;58m"}, // git
   "lua": {"icon": "\ue620", "color": "\x1b[38;2;66;165;245m"}, // lua
   "clojure": {"icon": "\ue76a", "color": "\x1b[38;2;100;221;23m"}, // clojure
   "groovy": {"icon": "\uf2a6", "color": "\x1b[38;2;41;198;218m"}, // groovy
