@@ -46,7 +46,6 @@ void main(List<String> arguments) async {
   fileList.addAll(files);
 
   // * Main logic starts here
-  String output = '';
   final int maxFileSizeLengthInDigits = await gatherDigitsOfMaxFileSize(
     fileList,
     isHumanReadable: args.humanReadableFileSize,
@@ -67,39 +66,35 @@ void main(List<String> arguments) async {
       final FileStat fileStat = await FileStat.stat(currentFile);
 
       if (args.longFileListing && args.showHeaders) {
-        output += fileType(fileStat);
-        output += filePermissions(fileStat);
+        stdout.write(fileType(fileStat));
+        stdout.write(filePermissions(fileStat));
 
-        output += fileSize(
-          fileStat,
-          fileSizeDigits: maxFileSizeLengthInDigits,
-          humanReadableFileSize: args.humanReadableFileSize,
+        stdout.write(
+          fileSize(
+            fileStat,
+            fileSizeDigits: maxFileSizeLengthInDigits,
+            humanReadableFileSize: args.humanReadableFileSize,
+          ),
         );
 
-        output += fileOwner(fileStat);
-        output += fileModificationDate(fileStat);
+        stdout.write(fileOwner(fileStat));
+        stdout.write(fileModificationDate(fileStat));
       }
 
       if (args.showFileTypeIcon) {
-        final String fileToProcess = directory.path + currentFile;
-        final FileSystemEntityType type = fileStat.type;
-
-        output += showFileIcon(
-          fileToProcess,
-          type,
-          showHeaders: args.showHeaders,
+        stdout.write(
+          showFileIcon(
+            path: directory.path,
+            file: currentFile,
+            fileType: fileStat.type,
+            showHeaders: args.showHeaders,
+          ),
         );
       }
 
-      output += fileName(element, fileStat, currentFile);
+      stdout.write(fileName(element, fileStat, currentFile));
 
-      if (args.longFileListing) {
-        output += "\n";
-      } else {
-        output += "  ";
-      }
-
-      stdout.write(output);
+      stdout.write(args.longFileListing ? "\n" : "  ");
     } on FileSystemException catch (e) {
       stderr.write('$e');
       exit(2);

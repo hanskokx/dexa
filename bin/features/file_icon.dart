@@ -1,31 +1,38 @@
 part of '../dexa.dart';
 
-String showFileIcon(
-  String file,
-  FileSystemEntityType type, {
+String showFileIcon({
   bool showHeaders = false,
+  required String path,
+  required String file,
+  required FileSystemEntityType fileType,
 }) {
   String output = '';
   String? icon;
   String? color;
 
-  switch (type) {
+  switch (fileType) {
     case FileSystemEntityType.directory:
       icon = defaultIcons['dir'];
 
-      if (file.contains('.git')) icon = iconSet['git']?['icon'];
+      if (file.startsWith('.')) {
+        icon = defaultIcons['hiddendir'];
+      }
+
+      if (file == '.git') {
+        icon = iconSet['git']?['icon'];
+        color = iconSet['git']?['color'];
+      }
 
       break;
     case FileSystemEntityType.link:
-      icon = iconSet['symlink']?['icon'];
+      icon = defaultIcons['symlink_file'];
       break;
     default:
       final String mimeType =
-          lookupMimeType(file)?.split('/')[1] ?? file.split('.').last;
+          lookupMimeType(path + file)?.split('/')[1] ?? file.split('.').last;
 
       final Map<String, String>? data = iconSet[mimeType];
 
-      // The file type has been found in the list of known file types.
       if (data != null) {
         icon = data['icon'];
         color = data['color'];

@@ -2,20 +2,22 @@ part of '../dexa.dart';
 
 // default icons in case nothing can be found
 Map<String, String> defaultIcons = {
-  "dir": "\uf74a",
-  "diropen": "\ufc6e",
-  "hiddendir": "\uf755",
+  "dir": "\uf4d3",
+  "diropen": "\uf4d4",
+  "hiddendir": "󱞞",
   "exe": "\uf713",
   "file": "\uf723",
-  "hiddenfile": "\ufb12",
+  "hiddenfile": "󰘓",
+  "symlink_file": "\uEAEE",
+  "symlink_dir": "\uEAED",
 };
 
 // RGB to ansi format: \x1b[38;2;<r>;<g>;<b>m
 Map<String, Map<String, String>> iconSet = {
-  "symlink": {"icon": "\uf1177", "color": "\x1b[38;2;228;79;57m"}, // symlink
+  "symlink": {"icon": "\uf1177", "color": ""}, // symlink
   "html": {"icon": "\uf13b", "color": "\x1b[38;2;228;79;57m"}, // html
-  "markdown": {"icon": "\uf853", "color": "\x1b[38;2;66;165;245m"}, // markdown
-  "md": {"icon": "\uf853", "color": "\x1b[38;2;66;165;245m"}, // markdown
+  "markdown": {"icon": "\ueb1d", "color": "\x1b[38;2;66;165;245m"}, // markdown
+  "md": {"icon": "\ueb1d", "color": "\x1b[38;2;66;165;245m"}, // markdown
   "css": {"icon": "\uf81b", "color": "\x1b[38;2;66;165;245m"}, // css
   "sass": {"icon": "\ue603", "color": "\x1b[38;2;237;80;122m"}, // sass
   "less": {"icon": "\ue60b", "color": "\x1b[38;2;2;119;189m"}, // less
@@ -104,7 +106,7 @@ Map<String, Map<String, String>> iconSet = {
     "icon": "\ufd42",
     "color": "\x1b[38;2;58;121;110m"
   }, // vue-config
-  "lock": {"icon": "\uf83d", "color": "\x1b[38;2;255;213;79m"}, // lock
+  "lock": {"icon": "\uF023", "color": "\x1b[38;2;255;213;79m"}, // lock
   "handlebars": {
     "icon": "\ue60f",
     "color": "\x1b[38;2;250;111;66m"
