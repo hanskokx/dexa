@@ -7,12 +7,15 @@ import 'package:args/args.dart';
   ArgParser parser, {
   List<String>? arguments,
 }) {
-  Argument.values.map(
-    (e) => parser.addFlag(e.name, negatable: false, abbr: e.abbr),
-  );
+  for (final Argument e in Argument.values) {
+    parser.addFlag(
+      e.name,
+      negatable: false,
+      abbr: e.abbr,
+    );
+  }
 
   final List<String> args = [if (arguments != null) ...arguments];
-
   final ArgResults argResults = parser.parse(args);
 
   final UserArguments parsedArguments = UserArguments(
