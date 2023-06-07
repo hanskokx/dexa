@@ -1,23 +1,26 @@
 part of '../dexa.dart';
 
-String getHeaders({
+void writeHeaders({
   bool showFileTypeIcon = false,
   required int fileSizeDigits,
 }) {
-  final String padding = stdout.supportsAnsiEscapes ? " " : '';
-  String header = "";
+  final String padding = stdout.supportsAnsiEscapes ? " " : "";
 
-  header += "${"Permissions".underline()} ";
-  header += "${"Size".underline()}${" " * (fileSizeDigits - 5)} $padding";
+  stdout.write("Permissions".underline());
+  stdout.write(padding);
+  stdout.write("Size".underline());
+  stdout.write(padding * (fileSizeDigits - 3));
   // header += "User".underline() + " ";
-  header += "${"Date Modified".underline()}  $padding";
+  stdout.write("Date Modified".underline());
+  stdout.write(padding * 4);
   if (showFileTypeIcon) {
-    header += " ${"Icon".underline()}$padding";
+    stdout.write("Icon".underline());
+    stdout.write(padding);
   }
 
-  header += "${"Name".underline()} $padding";
+  stdout.write("Name".underline());
+  stdout.write(padding);
 
-  header += "\n";
-
-  return header;
+  stdout.write(ansiResets[AnsiResets.all]!);
+  stdout.write("\n");
 }

@@ -52,7 +52,7 @@ void main(List<String> arguments) async {
 
   if (args.showHeaders && args.longFileListing) {
     maxFileSizeLengthInDigits = await gatherDigitsOfMaxFileSize(fileList);
-    output += getHeaders(
+    writeHeaders(
       showFileTypeIcon: args.showFileTypeIcon,
       fileSizeDigits: maxFileSizeLengthInDigits,
     );
@@ -65,20 +65,18 @@ void main(List<String> arguments) async {
     try {
       final FileStat fileStat = await FileStat.stat(currentFile);
 
-      if (args.longFileListing) {
-        if (args.showHeaders) {
-          output += fileType(fileStat);
-          output += filePermissions(fileStat);
+      if (args.longFileListing && args.showHeaders) {
+        output += fileType(fileStat);
+        output += filePermissions(fileStat);
 
-          output += fileSize(
-            fileStat,
-            fileSizeDigits: maxFileSizeLengthInDigits,
-            humanReadableFileSize: args.humanReadableFileSize,
-          );
+        output += fileSize(
+          fileStat,
+          fileSizeDigits: maxFileSizeLengthInDigits,
+          humanReadableFileSize: args.humanReadableFileSize,
+        );
 
-          output += fileOwner(fileStat);
-          output += fileModificationDate(fileStat);
-        }
+        output += fileOwner(fileStat);
+        output += fileModificationDate(fileStat);
       }
 
       if (args.showFileTypeIcon) {
@@ -90,6 +88,7 @@ void main(List<String> arguments) async {
           showHeaders: args.showHeaders,
         );
       }
+
       output += fileName(element, fileStat, currentFile);
 
       if (args.longFileListing) {

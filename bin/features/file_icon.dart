@@ -43,6 +43,7 @@ String showFileIcon(
   } else {
     output += '$icon ';
   }
+
   if (stdout.supportsAnsiEscapes) {
     output += ansiResets[AnsiResets.all]!;
   }
