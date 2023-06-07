@@ -29,8 +29,10 @@ import 'package:args/args.dart';
         : false, // https://github.com/dart-lang/sdk/issues/40303
   );
 
+  String path = argResults.rest.first;
+  if (path.endsWith(':')) path += Platform.pathSeparator;
   final Directory directory = Directory.fromUri(
-    Uri.directory(argResults.rest.first),
+    Uri.directory(path),
   );
 
   return (directory, parsedArguments);

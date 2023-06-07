@@ -6,7 +6,7 @@ Map<String, String> defaultIcons = {
   "diropen": "\uf4d4",
   "hiddendir": "󱞞",
   "exe": "\uf713",
-  "file": "\uf723",
+  "file": "",
   "hiddenfile": "󰘓",
   "symlink_file": "\uEAEE",
   "symlink_dir": "\uEAED",
@@ -14,6 +14,9 @@ Map<String, String> defaultIcons = {
 
 // RGB to ansi format: \x1b[38;2;<r>;<g>;<b>m
 Map<String, Map<String, String>> iconSet = {
+  "mi": {"icon": "", "color": ""},
+  "dll": {"icon": "󱁻", "color": ""},
+  "txt": {"icon": "", "color": ""},
   "symlink": {"icon": "\uf1177", "color": ""}, // symlink
   "html": {"icon": "\uf13b", "color": "\x1b[38;2;228;79;57m"}, // html
   "markdown": {"icon": "\ueb1d", "color": "\x1b[38;2;66;165;245m"}, // markdown
@@ -23,7 +26,7 @@ Map<String, Map<String, String>> iconSet = {
   "less": {"icon": "\ue60b", "color": "\x1b[38;2;2;119;189m"}, // less
   "json": {"icon": "\ue60b", "color": "\x1b[38;2;251;193;60m"}, // json
   "yaml": {"icon": "\ue60b", "color": "\x1b[38;2;244;68;62m"}, // yaml
-  "xml": {"icon": "\uf72d", "color": "\x1b[38;2;64;153;69m"}, // xml
+  "xml": {"icon": "󰗀", "color": "\x1b[38;2;64;153;69m"}, // xml
   "image": {"icon": "\uf71e", "color": "\x1b[38;2;48;166;154m"}, // image
   "javascript": {
     "icon": "\ue74e",
@@ -164,7 +167,7 @@ Map<String, Map<String, String>> iconSet = {
     "icon": "\uf7f4",
     "color": "\x1b[38;2;238;238;238m"
   }, // code-climate
-  "log": {"icon": "\uf719", "color": "\x1b[38;2;175;180;43m"}, // log
+  "log": {"icon": "", "color": "\x1b[38;2;175;180;43m"}, // log
   "ejs": {"icon": "\ue618", "color": "\x1b[38;2;255;202;61m"}, // ejs
   "grunt": {"icon": "\ue611", "color": "\x1b[38;2;251;170;61m"}, // grunt
   "django": {"icon": "\ue71d", "color": "\x1b[38;2;67;160;71m"}, // django

@@ -1,5 +1,9 @@
 part of '../dexa.dart';
 
+const List<String> wellKnownFileExtensions = [
+  "x-msdownload",
+];
+
 String showFileIcon({
   bool showHeaders = false,
   required String path,
@@ -28,8 +32,17 @@ String showFileIcon({
       icon = defaultIcons['symlink_file'];
       break;
     default:
-      final String mimeType =
-          lookupMimeType(path + file)?.split('/')[1] ?? file.split('.').last;
+      if (file.replaceFirst(path, '').startsWith('.')) {
+        icon = defaultIcons['hiddenfile'];
+        break;
+      }
+
+      String? mimeType = lookupMimeType(path + file)?.split('/')[1];
+      if (mimeType == 'plain' ||
+          mimeType == null ||
+          wellKnownFileExtensions.contains(mimeType)) {
+        mimeType = file.split('.').last;
+      }
 
       final Map<String, String>? data = iconSet[mimeType];
 
@@ -37,6 +50,11 @@ String showFileIcon({
         icon = data['icon'];
         color = data['color'];
       }
+
+      if (file.startsWith('.')) {
+        icon = defaultIcons['hiddenfile'];
+      }
+
       break;
   }
   icon ??= defaultIcons['file'];
